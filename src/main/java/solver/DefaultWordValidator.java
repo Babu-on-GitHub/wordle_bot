@@ -4,16 +4,26 @@ import java.util.*;
 
 public class DefaultWordValidator implements WordValidator{
 
-    Set<Character> invalidCharacters;
-    Map<Integer, Character> correctCharactersForPositions;
-    Map<Character, Set<Integer>> incorrectPositionsForCharacters;
+    private Set<Character> invalidCharacters;
+    private Map<Integer, Character> correctCharactersForPositions;
+    private Map<Character, Set<Integer>> incorrectPositionsForCharacters;
 
+    /**
+     * Default constructor
+     * Initializes the invalidCharacters, correctCharactersForPositions, incorrectPositionsForCharacters fields with empty instantiations
+     */
     public DefaultWordValidator(){
         this.invalidCharacters = new HashSet<>();
         this.correctCharactersForPositions = new HashMap<>();
         this.incorrectPositionsForCharacters = new HashMap<>();
     }
 
+    /**
+     * Constructor with parameters
+     * @param invalidCharacters Set of invalid characters
+     * @param correctPositionsForCharacters Map of positions and correct characters for them
+     * @param incorrectPositionsForCharacters Map of characters and the incorrect positions
+     */
     public DefaultWordValidator(Set<Character> invalidCharacters,
                                 Map<Integer, Character> correctPositionsForCharacters,
                                 Map<Character, Set<Integer>> incorrectPositionsForCharacters) {
@@ -22,11 +32,7 @@ public class DefaultWordValidator implements WordValidator{
         this.incorrectPositionsForCharacters = incorrectPositionsForCharacters;
     }
 
-    /**
-     * Method takes a word as a char array of length 5 and returns if the word is a valid guess based on current knowledge
-     * @param word
-     * @return WordValidity representing if the word is valid or invalid based on current knowledge
-     */
+
     @Override
     public WordValidity validate(char[] word){
         if(word == null || word.length != 5){
@@ -50,7 +56,10 @@ public class DefaultWordValidator implements WordValidator{
         for(char c: incorrectPositionsForCharacters.keySet()){
             boolean contains = false;
             for (char l: word){
-                if(c == l) contains = true;
+                if(c == l) {
+                    contains = true;
+                    break;
+                }
             }
             if(!contains) return WordValidity.INVALID;
         }
@@ -58,14 +67,30 @@ public class DefaultWordValidator implements WordValidator{
         return WordValidity.VALID;
     }
 
+    /**
+     * Mark a character as invalid
+     * Words containing invalid characters are going to be checked as invalid
+     * @param c character to be marked as invalid
+     */
     public void markCharacterAsInvalid(char c){
         this.invalidCharacters.add(c);
     }
 
+    /**
+     * Mark the correct character for a given position
+     * Words that do not have the character on the marked position are going to be invalidated
+     * @param c character to be marked
+     * @param p position to be marked
+     */
     public void markCorrectCharacterForPosition(char c, int p){
         correctCharactersForPositions.put(p,c);
     }
 
+    /**
+     *  Mark a position invalid for a character
+     * @param c character with invalid position
+     * @param p position to be marked
+     */
     public void markInvalidPositionForValidCharacter(char c, int p){
         Set<Integer> invalidPositionsForCharacter = incorrectPositionsForCharacters.get(c);
         if(invalidPositionsForCharacter == null) {

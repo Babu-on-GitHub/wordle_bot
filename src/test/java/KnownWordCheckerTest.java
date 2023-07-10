@@ -59,6 +59,22 @@ public class KnownWordCheckerTest {
                                 CharacterValidity.GREY,
                                 CharacterValidity.GREY,
                                 CharacterValidity.GREY,
+                                CharacterValidity.GREY)),
+                Arguments.of(
+                        chars('c','o','c','o','a'),
+                        chars('c','o','o','o','o'),
+                        validities(CharacterValidity.GREEN,
+                                CharacterValidity.GREEN,
+                                CharacterValidity.GREY,
+                                CharacterValidity.GREEN,
+                                CharacterValidity.GREY)),
+                Arguments.of(
+                        chars('c','o','c','o','a'),
+                        chars('o','a','o','a','o'),
+                        validities(CharacterValidity.YELLOW,
+                                CharacterValidity.YELLOW,
+                                CharacterValidity.YELLOW,
+                                CharacterValidity.GREY,
                                 CharacterValidity.GREY))
 
         );

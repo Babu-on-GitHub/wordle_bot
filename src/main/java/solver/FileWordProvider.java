@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class FileWordProvider implements WordProvider {
 
-    Scanner scanner;
+    private Scanner scanner;
 
     public FileWordProvider() {
         try {

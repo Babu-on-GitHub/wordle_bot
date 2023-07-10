@@ -11,8 +11,9 @@ public class KnownWordChecker implements WordChecker{
     }
 
     /**
-     * Method that gets a word as input and compares it to a known previously given word
-     * Method returns an array of character validities that represent whether the character is included in the correct word and if it is on the correct position
+     * Method that gets a word as input and returns an array of CharacterValidity representing the validities of each letter in order
+     * The validities represent whether the character is included in the correct word and if it is on the correct position
+     * In the KnownWordChecker the method compares the word given as a parameter to a previously given correct word
      * @param word char array of length 5 representing the word to check
      * @return array of CharacterValidity representing the validities for each letter in the checked word
      */
