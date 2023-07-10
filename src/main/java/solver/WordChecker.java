@@ -13,5 +13,4 @@ public interface WordChecker {
      */
     CharacterValidity[] checkWord(char[] word);
 
-
 }

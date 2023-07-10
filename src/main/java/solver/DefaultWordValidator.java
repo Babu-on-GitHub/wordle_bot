@@ -8,6 +8,8 @@ public class DefaultWordValidator implements WordValidator{
     private Map<Integer, Character> correctCharactersForPositions;
     private Map<Character, Set<Integer>> incorrectPositionsForCharacters;
 
+    private Map<Character, Integer> characterFrequencies;
+
     /**
      * Default constructor
      * Initializes the invalidCharacters, correctCharactersForPositions, incorrectPositionsForCharacters fields with empty instantiations
@@ -16,6 +18,7 @@ public class DefaultWordValidator implements WordValidator{
         this.invalidCharacters = new HashSet<>();
         this.correctCharactersForPositions = new HashMap<>();
         this.incorrectPositionsForCharacters = new HashMap<>();
+        this.characterFrequencies = new HashMap<>();
     }
 
     /**
@@ -26,10 +29,12 @@ public class DefaultWordValidator implements WordValidator{
      */
     public DefaultWordValidator(Set<Character> invalidCharacters,
                                 Map<Integer, Character> correctPositionsForCharacters,
-                                Map<Character, Set<Integer>> incorrectPositionsForCharacters) {
+                                Map<Character, Set<Integer>> incorrectPositionsForCharacters,
+                                Map<Character, Integer> characterFrequencies) {
         this.invalidCharacters = invalidCharacters;
         this.correctCharactersForPositions = correctPositionsForCharacters;
         this.incorrectPositionsForCharacters = incorrectPositionsForCharacters;
+        this.characterFrequencies = characterFrequencies;
     }
 
 
@@ -62,6 +67,16 @@ public class DefaultWordValidator implements WordValidator{
                 }
             }
             if(!contains) return WordValidity.INVALID;
+        }
+
+        for(char c: characterFrequencies.keySet()){
+            int frequency = 0;
+            for (char l: word){
+                if(c == l) {
+                    frequency++;
+                }
+            }
+            if(characterFrequencies.get(c) != frequency) return WordValidity.INVALID;
         }
 
         return WordValidity.VALID;
@@ -97,7 +112,16 @@ public class DefaultWordValidator implements WordValidator{
             invalidPositionsForCharacter = new TreeSet<>();
         }
         invalidPositionsForCharacter.add(p);
+        incorrectPositionsForCharacters.put(c,invalidPositionsForCharacter);
     }
 
+    /**
+     * Mark the number of times a character appears in the word
+     * @param c
+     * @param f
+     */
+    public void markCharacterFrequency(char c, int f){
+        characterFrequencies.put(c,f);
+    }
 
 }

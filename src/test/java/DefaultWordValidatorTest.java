@@ -19,10 +19,12 @@ public class DefaultWordValidatorTest {
         //invalid char: 'c','r','a','n','e','p','u','v';
         //invalid positions 'l',Set.of(0,1),'o',Set.of(2)
         //correct positions 4,'y'
+        //character frequencies 'o',1,'y',1,'l','2'
         DefaultWordValidator validator = new DefaultWordValidator(
             Set.of('c','r','a','n','e','p','u','v'),
             Map.of(4,'y'),
-            Map.of('l',Set.of(0,1),'o',Set.of(2))
+            Map.of('l',Set.of(0,1),'o',Set.of(2)),
+            Map.of('o',1,'y',1,'l',2)
         );
         assertThat(validator.validate(word)).isEqualTo(expected);
     }
@@ -62,7 +64,7 @@ public class DefaultWordValidatorTest {
                         WordValidity.VALID
                 ),
                 Arguments.of(
-                        chars('m','i','l','o','y'),
+                        chars('o','i','l','l','y'),
                         WordValidity.VALID
                 )
         );
@@ -113,7 +115,8 @@ public class DefaultWordValidatorTest {
         DefaultWordValidator validator = new DefaultWordValidator(
                 Set.of('c','r','a','n','e','p','u','v'),
                 Map.of(4,'y'),
-                Map.of()
+                Map.of(),
+                Map.of('y',1)
         );
         assertThat(validator.validate(word)).isEqualTo(expected);
     }
@@ -165,7 +168,8 @@ public class DefaultWordValidatorTest {
         DefaultWordValidator validator = new DefaultWordValidator(
                 Set.of('c','r','a','n','e','p','u','v'),
                 Map.of(),
-                Map.of('l',Set.of(0,1),'o',Set.of(2))
+                Map.of('l',Set.of(0,1),'o',Set.of(2)),
+                Map.of('l',2,'o',1)
         );
         assertThat(validator.validate(word)).isEqualTo(expected);
     }
@@ -201,7 +205,7 @@ public class DefaultWordValidatorTest {
                         WordValidity.VALID
                 ),
                 Arguments.of(
-                        chars('m','i','l','o','y'),
+                        chars('o','i','l','l','y'),
                         WordValidity.VALID
                 )
         );
