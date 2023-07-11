@@ -20,18 +20,19 @@ public class Solver {
     public char[] solve(){
         Random rng = new Random();
         List<char[]> wordList = getPotentialWordsBasedOnFirstGuess(STARTER_WORD);
+        //System.out.println(STARTER_WORD);
         CharacterValidity[] validities;
         //let's also check the first guess
         validities = checker.checkWord(STARTER_WORD);
         if(Arrays.equals(validities,CORRECT_WORD_VALIDITIES)) return STARTER_WORD;
         //let's actually do the rest
-        char[] word;
+        char[] word = new char[5];
         do{
-           word = wordList.get(Math.abs(rng.nextInt()%wordList.size()));
-            System.out.println(word);
-           validities = checker.checkWord(word);
-           updateValidator(validities,word);
-           wordList = reducePotentialWords(wordList);
+            word = wordList.get(Math.abs(rng.nextInt()%wordList.size()));
+            //System.out.println(word);
+            validities = checker.checkWord(word);
+            updateValidator(validities,word);
+            wordList = reducePotentialWords(wordList);
         }while(!Arrays.equals(validities,CORRECT_WORD_VALIDITIES));
 
         return word;
@@ -59,14 +60,16 @@ public class Solver {
 
     private void updateValidator(CharacterValidity[] characterValidities, char[] word){
         for(int i = 0; i < 5; i++){
+            int count = 0;
+            for(int j = 0; j < 5; j++){
+                if(word[j] == word[i] && characterValidities[j] != CharacterValidity.GREY) count++;
+            }
             if(characterValidities[i] == CharacterValidity.GREY){
-                validator.markCharacterAsInvalid(word[i]);
+                if(count == 0) {
+                    validator.markCharacterAsInvalid(word[i]);
+                }
             }else{
                 //TODO maybe do something like a frequency vector to remove redundant loops
-                int count = 0;
-                for(int j = 0; j < 5; j++){
-                    if(word[j] == word[i] && characterValidities[j] != CharacterValidity.GREY) count++;
-                }
                 validator.markCharacterFrequency(word[i],count);
                 if(characterValidities[i] == CharacterValidity.GREEN){
                     validator.markCorrectCharacterForPosition(word[i],i);

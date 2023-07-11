@@ -7,7 +7,6 @@ public class DefaultWordValidator implements WordValidator{
     private Set<Character> invalidCharacters;
     private Map<Integer, Character> correctCharactersForPositions;
     private Map<Character, Set<Integer>> incorrectPositionsForCharacters;
-
     private Map<Character, Integer> characterFrequencies;
 
     /**
@@ -76,7 +75,7 @@ public class DefaultWordValidator implements WordValidator{
                     frequency++;
                 }
             }
-            if(characterFrequencies.get(c) != frequency) return WordValidity.INVALID;
+            if(characterFrequencies.get(c) > frequency) return WordValidity.INVALID;
         }
 
         return WordValidity.VALID;
@@ -122,6 +121,16 @@ public class DefaultWordValidator implements WordValidator{
      */
     public void markCharacterFrequency(char c, int f){
         characterFrequencies.put(c,f);
+    }
+
+    @Override
+    public String toString(){
+        return "Validator{"+
+                "invalid characters" + invalidCharacters.toString() +
+                "correct characters for postitions" + correctCharactersForPositions.toString() +
+                "incorrect positions for characters" + incorrectPositionsForCharacters.toString() +
+                "character frequencies" + characterFrequencies.toString() +
+                "}";
     }
 
 }
