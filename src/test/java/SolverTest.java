@@ -1,5 +1,4 @@
 import net.jqwik.api.*;
-import net.jqwik.api.constraints.CharRange;
 import solver.DefaultWordValidator;
 import solver.FileWordProvider;
 import solver.KnownWordChecker;
@@ -14,8 +13,10 @@ public class SolverTest {
 
     @Property
     void testManyTries(@ForAll("wordProvider") char[] word){
-        Solver solver = new Solver(new KnownWordChecker(word),new DefaultWordValidator(),new FileWordProvider());;
-        assertThat(solver.solve()).isEqualTo(word);
+        Solver solver = new Solver(new KnownWordChecker(word),new DefaultWordValidator(),new FileWordProvider());
+        List<char[]> solution = solver.solve();
+        assertThat(solution.get(solution.size()-1)).isEqualTo(word);
+        //if(solution.size()>6) System.out.println(solution.size());
     }
 
     @Provide

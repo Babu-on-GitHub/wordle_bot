@@ -17,25 +17,28 @@ public class Solver {
         this.provider = provider;
     }
 
-    public char[] solve(){
+    public List<char[]> solve(){
+        List<char[]> guesses = new ArrayList<>();
         Random rng = new Random();
         List<char[]> wordList = getPotentialWordsBasedOnFirstGuess(STARTER_WORD);
+        guesses.add(STARTER_WORD);
         //System.out.println(STARTER_WORD);
         CharacterValidity[] validities;
         //let's also check the first guess
         validities = checker.checkWord(STARTER_WORD);
-        if(Arrays.equals(validities,CORRECT_WORD_VALIDITIES)) return STARTER_WORD;
+        if(Arrays.equals(validities,CORRECT_WORD_VALIDITIES)) return guesses;
         //let's actually do the rest
         char[] word = new char[5];
         do{
             word = wordList.get(Math.abs(rng.nextInt()%wordList.size()));
+            guesses.add(word);
             //System.out.println(word);
             validities = checker.checkWord(word);
             updateValidator(validities,word);
             wordList = reducePotentialWords(wordList);
         }while(!Arrays.equals(validities,CORRECT_WORD_VALIDITIES));
 
-        return word;
+        return guesses;
     }
 
     private List<char[]> reducePotentialWords(List<char[]> wordList) {
