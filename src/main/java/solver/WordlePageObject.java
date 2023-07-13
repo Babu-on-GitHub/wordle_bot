@@ -1,4 +1,4 @@
-package Wordle;
+package solver;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -12,9 +12,7 @@ import solver.CharacterValidity;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import static org.openqa.selenium.By.xpath;
 
 public class WordlePageObject {
 
@@ -24,8 +22,13 @@ public class WordlePageObject {
 
     public WordlePageObject() {
         this.driver = new ChromeDriver();
+
+    }
+
+    public void init(){
         driver.get(pageURL);
     }
+
 
     public boolean isStartPage(){
         WebElement mainContainer = driver.findElement(By.xpath("/html/body/div[1]/div"));
@@ -42,29 +45,20 @@ public class WordlePageObject {
     public void clickStart(){
         WebElement button = new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div/div/div[3]/button[2]")));
-        new Actions(driver)
-                .moveToElement(button)
-                //.pause(Duration.ofMillis(1000))
-                .click().perform();
+        button.click();
     }
 
     public void closeCookiesPopUp(){
         WebElement button = new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.elementToBeClickable(By.id("pz-gdpr-btn-closex")));
-        new Actions(driver)
-                .moveToElement(button)
-                //.pause(Duration.ofMillis(1000))
-                .click().perform();
+        button.click();
     }
 
 
     public void closeHowToPlayPopUp(){
         WebElement button = new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[1]/div/dialog/div/button")));
-        new Actions(driver)
-                .moveToElement(button)
-                //.pause(Duration.ofMillis(1000))
-                .click().perform();
+        button.click();
     }
 
     public void typeWord(String word){
@@ -78,9 +72,9 @@ public class WordlePageObject {
         action.perform();
     }
 
-    public CharacterValidity[] getResults(int rowNumber){
+    public CharacterValidity[] getResultsForRow(int rowNumber){
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1500);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

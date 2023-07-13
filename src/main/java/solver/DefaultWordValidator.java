@@ -2,6 +2,9 @@ package solver;
 
 import java.util.*;
 
+/**
+ * Default implementation for WordValidator
+ */
 public class DefaultWordValidator implements WordValidator{
 
     private Set<Character> invalidCharacters;
@@ -36,24 +39,29 @@ public class DefaultWordValidator implements WordValidator{
         this.characterFrequencies = characterFrequencies;
     }
 
-
+    /**
+     * Method takes a word as a char array of length 5 and returns if the word is a valid guess based on current knowledge
+     * Throws IllegalArgumentException if the word is null or the length is not 5
+     * @param word word to be checked
+     * @return boolean true if word is valid and false otherwise
+     */
     @Override
-    public WordValidity validate(char[] word){
+    public boolean validate(char[] word){
         if(word == null || word.length != 5){
             throw new IllegalArgumentException();
         }
 
         for(int i=0; i< 5; i++){
             if(invalidCharacters.contains(word[i])){
-                return WordValidity.INVALID;
+                return false;
             }
             Character characterOnThisPos = correctCharactersForPositions.get(i);
             if(characterOnThisPos!=null && characterOnThisPos != word[i]){
-                return WordValidity.INVALID;
+                return false;
             }
             Set<Integer> invalidPositionsForCharacter = incorrectPositionsForCharacters.get(word[i]);
             if(invalidPositionsForCharacter!=null && invalidPositionsForCharacter.contains(i)){
-                return WordValidity.INVALID;
+                return false;
             }
         }
 
@@ -65,7 +73,7 @@ public class DefaultWordValidator implements WordValidator{
                     break;
                 }
             }
-            if(!contains) return WordValidity.INVALID;
+            if(!contains) return false;
         }
 
         for(char c: characterFrequencies.keySet()){
@@ -75,10 +83,10 @@ public class DefaultWordValidator implements WordValidator{
                     frequency++;
                 }
             }
-            if(characterFrequencies.get(c) > frequency) return WordValidity.INVALID;
+            if(characterFrequencies.get(c) > frequency) return false;
         }
 
-        return WordValidity.VALID;
+        return true;
     }
 
     /**
@@ -116,8 +124,8 @@ public class DefaultWordValidator implements WordValidator{
 
     /**
      * Mark the number of times a character appears in the word
-     * @param c
-     * @param f
+     * @param c character to be marked
+     * @param f the number of times it appears in the word
      */
     public void markCharacterFrequency(char c, int f){
         characterFrequencies.put(c,f);

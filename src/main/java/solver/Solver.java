@@ -22,6 +22,10 @@ public class Solver {
         guesses = new ArrayList<>();
     }
 
+    /**
+     * Method used to solve the wordle game
+     * @return The list of guesses taken until the word is guessed.
+     */
     public List<char[]> solve(){
 
         Random rng = new Random();
@@ -45,7 +49,7 @@ public class Solver {
     private List<char[]> reducePotentialWords(List<char[]> wordList) {
         List<char[]> newList = new ArrayList<>();
         for(char[] word: wordList){
-            if(validator.validate(word) == WordValidity.VALID) newList.add(word);
+            if(validator.validate(word)) newList.add(word);
         }
         return newList;
     }
@@ -56,8 +60,7 @@ public class Solver {
         updateValidator(validities,firstGuess);
         while(provider.hasNext()){
             char[] word = provider.next();
-            //TODO remove the entire WordValidity enum and make the WordValidator return a boolean (why didn't I do it like that in the first place? I wanted a 'Correct' validity option)
-            if(validator.validate(word) == WordValidity.VALID) list.add(word);
+            if(validator.validate(word)) list.add(word);
         }
         return list;
     }

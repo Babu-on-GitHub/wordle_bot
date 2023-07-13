@@ -4,18 +4,17 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ * Implementation of WordProvider that uses a dictionary file to provide words
+ */
 public class FileWordProvider implements WordProvider {
 
     private Scanner scanner;
 
-    public FileWordProvider() {
-        try {
+    public FileWordProvider() throws FileNotFoundException {
             scanner = new Scanner(new File("src/main/resources/wordle-La.txt"));
-        } catch (FileNotFoundException e) {
-            System.out.println("Bad file path oops");
-        }
-
     }
+
 
     @Override
     public char[] next() {

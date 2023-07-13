@@ -1,7 +1,8 @@
 package solver;
 
-import Wordle.WordlePageObject;
-
+/**
+ * Implementation of WordChecker that uses Selenium to interact with the official Wordle website to check words
+ */
 public class WordleWordChecker implements WordChecker{
 
     WordlePageObject page;
@@ -12,15 +13,26 @@ public class WordleWordChecker implements WordChecker{
     public WordleWordChecker(){
         currentGuessNumber=0;
         page = new WordlePageObject();
+        page.init();
         page.closeCookiesPopUp();
         page.clickStart();
         page.isGamePage();
         page.closeHowToPlayPopUp();
     }
 
+    /**
+     * Method that gets a word as input and returns an array of CharacterValidity representing the validities of each letter in order
+     * The validities represent whether the character is included in the correct word and if it is on the correct position
+     * The method uses the WordlePageObject to interact with the official Wordle website and check the word
+     * @param word char array of length 5 representing the word to check
+     * @return array of CharacterValidity representing the validities for each letter in the checked word
+     */
     @Override
     public CharacterValidity[] checkWord(char[] word) {
+        if(word == null || word.length != 5){
+            throw new IllegalArgumentException();
+        }
         page.typeWord(new String(word));
-        return page.getResults(currentGuessNumber++);
+        return page.getResultsForRow(currentGuessNumber++);
     }
 }

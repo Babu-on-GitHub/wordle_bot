@@ -2,7 +2,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import solver.DefaultWordValidator;
-import solver.WordValidity;
 
 import java.util.Map;
 import java.util.Set;
@@ -14,7 +13,7 @@ public class DefaultWordValidatorTest {
 
     @ParameterizedTest
     @MethodSource("test1src")
-    void test1(char[] word, WordValidity expected){
+    void test1(char[] word, boolean expected){
         //testing with following knowledge
         //invalid char: 'c','r','a','n','e','p','u','v';
         //invalid positions 'l',Set.of(0,1),'o',Set.of(2)
@@ -33,46 +32,46 @@ public class DefaultWordValidatorTest {
         return Stream.of(
                 Arguments.of(
                         chars('c','r','a','n','e'),
-                        WordValidity.INVALID
+                        false
                 ),
                 Arguments.of(
                         chars('c','r','i','m','e'),
-                        WordValidity.INVALID
+                        false
                 ),
                 Arguments.of(
                         chars('c','r','a','v','e'),
-                        WordValidity.INVALID
+                        false
                 ),
                 Arguments.of(
                         chars('p','l','u','m','p'),
-                        WordValidity.INVALID
+                        false
                 ),
                 Arguments.of(
                         chars('l','o','b','b','y'),
-                        WordValidity.INVALID
+                        false
                 ),
                 Arguments.of(
                         chars('d','o','l','l','y'),
-                        WordValidity.VALID
+                        true
                 ),
                 Arguments.of(
                         chars('d','o','l','l','s'),
-                        WordValidity.INVALID
+                        false
                 ),
                 Arguments.of(
                         chars('f','o','l','l','y'),
-                        WordValidity.VALID
+                        true
                 ),
                 Arguments.of(
                         chars('o','i','l','l','y'),
-                        WordValidity.VALID
+                        true
                 )
         );
     }
 
     @ParameterizedTest
     @MethodSource("test2src")
-    void test2(char[] word, WordValidity expected){
+    void test2(char[] word, boolean expected){
         DefaultWordValidator validator = new DefaultWordValidator();
         assertThat(validator.validate(word)).isEqualTo(expected);
     }
@@ -81,34 +80,34 @@ public class DefaultWordValidatorTest {
         return Stream.of(
                 Arguments.of(
                         chars('c','r','a','n','e'),
-                        WordValidity.VALID
+                        true
                 ),
                 Arguments.of(
                         chars('c','r','i','m','e'),
-                        WordValidity.VALID
+                        true
                 ),
                 Arguments.of(
                         chars('c','r','a','v','e'),
-                        WordValidity.VALID
+                        true
                 ),
                 Arguments.of(
                         chars('p','l','u','m','p'),
-                        WordValidity.VALID
+                        true
                 ),
                 Arguments.of(
                         chars('l','o','b','b','y'),
-                        WordValidity.VALID
+                        true
                 ),
                 Arguments.of(
                         chars('d','o','l','l','y'),
-                        WordValidity.VALID
+                        true
                 )
         );
     }
 
     @ParameterizedTest
     @MethodSource("test3src")
-    void test3(char[] word, WordValidity expected){
+    void test3(char[] word, boolean expected){
         //testing with following knowledge
         //invalid char: 'c','r','a','n','e','p','u','v';
         //correct positions 4,'y'
@@ -125,42 +124,42 @@ public class DefaultWordValidatorTest {
         return Stream.of(
                 Arguments.of(
                         chars('c','r','a','n','e'),
-                        WordValidity.INVALID
+                        false
                 ),
                 Arguments.of(
                         chars('c','r','i','m','e'),
-                        WordValidity.INVALID
+                        false
                 ),
                 Arguments.of(
                         chars('c','r','a','v','e'),
-                        WordValidity.INVALID
+                        false
                 ),
                 Arguments.of(
                         chars('p','l','u','m','p'),
-                        WordValidity.INVALID
+                        false
                 ),
                 Arguments.of(
                         chars('l','o','o','n','y'),
-                        WordValidity.INVALID
+                        false
                 ),
                 Arguments.of(
                         chars('l','o','l','l','y'),
-                        WordValidity.VALID
+                        true
                 ),
                 Arguments.of(
                         chars('f','o','l','l','y'),
-                        WordValidity.VALID
+                        true
                 ),
                 Arguments.of(
                         chars('m','i','l','l','y'),
-                        WordValidity.VALID
+                        true
                 )
         );
     }
 
     @ParameterizedTest
     @MethodSource("test4src")
-    void test4(char[] word, WordValidity expected){
+    void test4(char[] word, boolean expected){
         //testing with following knowledge
         //invalid char: 'c','r','a','n','e','p','u','v';
         //invalid positions 'l',Set.of(0,1),'o',Set.of(2)
@@ -178,35 +177,35 @@ public class DefaultWordValidatorTest {
         return Stream.of(
                 Arguments.of(
                         chars('c','r','a','n','e'),
-                        WordValidity.INVALID
+                        false
                 ),
                 Arguments.of(
                         chars('c','r','i','m','e'),
-                        WordValidity.INVALID
+                        false
                 ),
                 Arguments.of(
                         chars('c','r','a','v','e'),
-                        WordValidity.INVALID
+                        false
                 ),
                 Arguments.of(
                         chars('p','l','u','m','p'),
-                        WordValidity.INVALID
+                        false
                 ),
                 Arguments.of(
                         chars('l','o','b','b','y'),
-                        WordValidity.INVALID
+                        false
                 ),
                 Arguments.of(
                         chars('d','o','l','l','s'),
-                        WordValidity.VALID
+                        true
                 ),
                 Arguments.of(
                         chars('f','o','l','l','y'),
-                        WordValidity.VALID
+                        true
                 ),
                 Arguments.of(
                         chars('o','i','l','l','y'),
-                        WordValidity.VALID
+                        true
                 )
         );
     }

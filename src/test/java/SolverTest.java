@@ -4,6 +4,7 @@ import solver.FileWordProvider;
 import solver.KnownWordChecker;
 import solver.Solver;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class SolverTest {
 
     @Property
-    void testManyTries(@ForAll("wordProvider") char[] word){
+    void testManyTries(@ForAll("wordProvider") char[] word) throws FileNotFoundException {
         Solver solver = new Solver(new KnownWordChecker(word),new DefaultWordValidator(),new FileWordProvider());
         List<char[]> solution = solver.solve();
         assertThat(solution.get(solution.size()-1)).isEqualTo(word);
@@ -20,9 +21,9 @@ public class SolverTest {
     }
 
     @Provide
-    Arbitrary<char[]> wordProvider(){
-        FileWordProvider provider = new FileWordProvider();
+    Arbitrary<char[]> wordProvider() throws FileNotFoundException {
         List<char[]> words = new ArrayList<>();
+        FileWordProvider provider = new FileWordProvider();
         while (provider.hasNext()){
             words.add(provider.next());
         }
