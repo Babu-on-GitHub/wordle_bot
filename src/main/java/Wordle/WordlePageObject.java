@@ -24,9 +24,6 @@ public class WordlePageObject {
 
     public WordlePageObject() {
         this.driver = new ChromeDriver();
-    }
-
-    public void initPage(){
         driver.get(pageURL);
     }
 

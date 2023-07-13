@@ -11,21 +11,22 @@ public class Solver {
     private WordValidator validator;
     private WordProvider provider;
 
+    CharacterValidity[] validities;
+    List<char[]> guesses;
+
     public Solver(WordChecker checker, WordValidator validator, WordProvider provider) {
         this.checker = checker;
         this.validator = validator;
         this.provider = provider;
+        validities = new CharacterValidity[5];
+        guesses = new ArrayList<>();
     }
 
     public List<char[]> solve(){
-        List<char[]> guesses = new ArrayList<>();
+
         Random rng = new Random();
         List<char[]> wordList = getPotentialWordsBasedOnFirstGuess(STARTER_WORD);
         guesses.add(STARTER_WORD);
-        //System.out.println(STARTER_WORD);
-        CharacterValidity[] validities;
-        //let's also check the first guess
-        validities = checker.checkWord(STARTER_WORD);
         if(Arrays.equals(validities,CORRECT_WORD_VALIDITIES)) return guesses;
         //let's actually do the rest
         char[] word = new char[5];
@@ -51,8 +52,8 @@ public class Solver {
 
     private List<char[]> getPotentialWordsBasedOnFirstGuess(char[] firstGuess){
         List<char[]> list = new ArrayList<>();
-        CharacterValidity[] initialCharVal = checker.checkWord(firstGuess);
-        updateValidator(initialCharVal,firstGuess);
+        validities = checker.checkWord(firstGuess);
+        updateValidator(validities,firstGuess);
         while(provider.hasNext()){
             char[] word = provider.next();
             //TODO remove the entire WordValidity enum and make the WordValidator return a boolean (why didn't I do it like that in the first place? I wanted a 'Correct' validity option)
