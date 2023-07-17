@@ -10,9 +10,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
-
+/**
+ * Main class to run the program
+ */
 public class Main {
 
+    /**
+     * Main method
+     * Runs an instance of solver that opens a browser window and solves today's Wordle
+     * @param args console arguments
+     */
     public static void main(String[] args) {
 
         try {
