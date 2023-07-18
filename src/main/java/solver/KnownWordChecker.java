@@ -18,6 +18,15 @@ public class KnownWordChecker implements WordChecker{
     }
 
     /**
+     * Does nothing for the KnownWordChecker
+     * Useful for other implementations of the WordChecker interface
+     */
+    @Override
+    public void init(){
+
+    }
+
+    /**
      * Method that gets a word as input and returns an array of CharacterValidity representing the validities of each letter in order
      * The validities represent whether the character is included in the correct word and if it is on the correct position
      * In the KnownWordChecker the method compares the word given as a parameter to a previously given correct word

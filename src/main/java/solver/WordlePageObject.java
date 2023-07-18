@@ -24,7 +24,6 @@ public class WordlePageObject {
 
     public WordlePageObject() {
         this.driver = new ChromeDriver();
-
     }
 
     /**

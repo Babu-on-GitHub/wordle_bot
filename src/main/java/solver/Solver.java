@@ -43,6 +43,7 @@ public class Solver {
         }else{
             numberOfCalls++;
         }
+        initChecker();
         Random rng = new Random();
         List<char[]> wordList = getPotentialWordsBasedOnFirstGuess(STARTER_WORD);
         guesses.add(STARTER_WORD);
@@ -71,6 +72,10 @@ public class Solver {
         return checker.checkWord(word);
     }
 
+    protected void initChecker(){
+        checker.init();
+    }
+
     protected List<char[]> getPotentialWordsBasedOnFirstGuess(char[] firstGuess){
         List<char[]> list = new ArrayList<>();
         validities = checker.checkWord(firstGuess);
@@ -93,7 +98,6 @@ public class Solver {
                     validator.markCharacterAsInvalid(word[i]);
                 }
             }else{
-                //TODO maybe do something like a frequency vector to remove redundant loops
                 validator.markCharacterFrequency(word[i],count);
                 if(characterValidities[i] == CharacterValidity.GREEN){
                     validator.markCorrectCharacterForPosition(word[i],i);

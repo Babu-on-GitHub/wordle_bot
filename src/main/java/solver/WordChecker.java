@@ -13,4 +13,11 @@ public interface WordChecker {
      */
     CharacterValidity[] checkWord(char[] word);
 
+    /**
+     * Method used to do any setup the checker might need
+     * This method has to be called before using any other methods of the WordChecker
+     * Added primarily for implementations that interact with web pages
+     */
+    void init();
+
 }

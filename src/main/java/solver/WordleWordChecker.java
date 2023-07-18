@@ -13,11 +13,6 @@ public class WordleWordChecker implements WordChecker{
     public WordleWordChecker(){
         currentGuessNumber=0;
         page = new WordlePageObject();
-        page.init();
-        page.closeCookiesPopUp();
-        page.clickStart();
-        page.isGamePage();
-        page.closeHowToPlayPopUp();
     }
 
     /**
@@ -34,5 +29,18 @@ public class WordleWordChecker implements WordChecker{
         }
         page.typeWord(new String(word));
         return page.getResultsForRow(currentGuessNumber++);
+    }
+
+    /**
+     * Method that does the setup for using the checkWord method
+     * Opens up the browser and navigates to the game page
+     */
+    @Override
+    public void init(){
+        page.init();
+        page.closeCookiesPopUp();
+        page.clickStart();
+        page.isGamePage();
+        page.closeHowToPlayPopUp();
     }
 }
