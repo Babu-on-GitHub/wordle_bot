@@ -24,7 +24,7 @@ public class Main {
 
         try {
             Solver solver = new Solver(new WordleWordChecker(),new DefaultWordValidator(),new FileWordProvider());
-            List<char[]>solution = solver.solve();
+            List<char[]>solution = solver.solve(false);
             for(char[] s : solution) System.out.println(Arrays.toString(s));
         }catch (FileNotFoundException e){
             System.out.println("Solver could not find the word dictionary. Check the resources");

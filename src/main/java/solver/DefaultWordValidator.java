@@ -4,6 +4,8 @@ import java.util.*;
 
 /**
  * Default implementation for WordValidator
+ * DefaultWordValidator can handle validating only one word at a time.
+ * For validating multiple words separate instances of the class must be created
  */
 public class DefaultWordValidator implements WordValidator{
 
