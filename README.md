@@ -7,6 +7,8 @@ Wordle Bot is a Java-based project designed to solve Wordle puzzles automaticall
 
 This project aims to automate the solving process by leveraging Selenium's capabilities to interact with web elements and simulate user input on the Wordle page. With Wordle Bot, you can quickly obtain the solution to the daily Wordle puzzle without manual input or guesswork.
 
+Please note that the program is configured to work with the [Wordle page](https://www.nytimes.com/games/wordle/index.html) as it is at 18/07/2023. If the page is changed in the future the bot might not work anymore and will need to be updated.
+
 Wordle Bot achieves a high level of accuracy in solving Wordle puzzles when using the provided dictionary of words that can be guessed and can be the word of the day. After many simulations, the program consistently guesses the correct word in at most six guesses with an accuracy rate of 97%. This high accuracy rate ensures reliable and efficient solving of Wordle puzzles when utilizing the specified dictionary.
 
 Please note that the accuracy rate mentioned is based on simulations and testing using the provided dictionary. The accuracy may vary if a different dictionary or word list is used, or if the Wordle game's dictionary changes over time.
@@ -46,8 +48,6 @@ If you encounter any issues or have questions, please refer to the project's doc
    ```shell
    gradle run
    ```
-
-Note: Make sure to have the appropriate WebDriver for Selenium installed and configured. For example, you might need the ChromeDriver for Chrome. Refer to the Selenium documentation for more details on WebDriver setup.
 
 ## Usage
 1. Make sure the Wordle Bot project is running.
