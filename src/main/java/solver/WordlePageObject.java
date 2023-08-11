@@ -33,6 +33,15 @@ public class WordlePageObject {
         driver.get(pageURL);
     }
 
+    /**
+     * Closes the "We've updated our terms" dialog
+     */
+    public void closeUpdatePopUp(){
+        WebElement button = new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[2]/div/div/button")));
+        button.click();
+    }
+
 
     /**
      * Checks whether the start page is displayed
@@ -59,7 +68,7 @@ public class WordlePageObject {
      */
     public void clickStart(){
         WebElement button = new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div/div/div/div/div[3]/button[2]")));
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[1]/div/div/div/div/div[4]/button[2]")));
         button.click();
     }
 
