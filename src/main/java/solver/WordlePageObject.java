@@ -5,6 +5,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -23,7 +24,7 @@ public class WordlePageObject {
     private final String pageURL = "https://www.nytimes.com/games/wordle/index.html";
 
     public WordlePageObject() {
-        this.driver = new ChromeDriver();
+        this.driver = new EdgeDriver();
     }
 
     /**
@@ -48,7 +49,7 @@ public class WordlePageObject {
      * @return true if start page is displayed false otherwise
      */
     public boolean isStartPage(){
-        WebElement mainContainer = driver.findElement(By.xpath("/html/body/div[1]/div"));
+        WebElement mainContainer = driver.findElement(By.xpath("/html/body/div/div/div"));
         List<WebElement> welcomeContent = mainContainer.findElements(By.className("Welcome-module_contentWelcome__TL17B"));
         return ! welcomeContent.isEmpty();
     }
@@ -68,7 +69,7 @@ public class WordlePageObject {
      */
     public void clickStart(){
         WebElement button = new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[1]/div/div/div/div/div[4]/button[2]")));
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[1]/div/div/div/div/div[2]/button[2]")));
         button.click();
     }
 

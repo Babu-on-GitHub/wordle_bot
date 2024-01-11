@@ -38,8 +38,8 @@ public class WordleWordChecker implements WordChecker{
     @Override
     public void init(){
         page.init();
-        page.closeUpdatePopUp();
-        page.closeCookiesPopUp();
+//        page.closeUpdatePopUp();
+//        page.closeCookiesPopUp();
         page.isStartPage();
         page.clickStart();
         page.isGamePage();
